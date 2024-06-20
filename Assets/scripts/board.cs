@@ -1,7 +1,6 @@
-
-using UnityEngine;
+using UnityEngine ;
 
 public class board : MonoBehaviour
 {
-    public tetrominoData[] tetrominoes;
+    public TetrominoData[] tetrominoes;
 }

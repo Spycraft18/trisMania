@@ -1,6 +1,6 @@
 using UnityEngine.Tilemaps;
 
-public enum tetromino
+public enum Tetromino
 {
     I,
     O,

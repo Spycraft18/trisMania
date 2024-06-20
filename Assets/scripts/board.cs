@@ -7,7 +7,10 @@ public class board : MonoBehaviour
     private void awake()
     {
         this.tilemap = GetComponentInChildren<Tilemap>();
-        for (int i = 0; i < this.tetrominoes.Length; i++) ;
+        for (int i = 0; i < this.tetrominoes.Length; i++)
+        {
         this.tetrominoes[i].Initialize();
+
+        }
     }
 }

@@ -13,4 +13,19 @@ public class board : MonoBehaviour
 
         }
     }
+    private void Start()
+    {
+        SpawnPiece();
+    }
+
+    public void SpawnPiece()
+    {
+        int random = Random.Range(0, this.tetrominoes.Length);
+        TetrominoData data = this.tetrominoes[random];
+    }
+
+    public void Set()
+    {
+
+    }
 }

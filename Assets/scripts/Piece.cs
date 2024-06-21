@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Android;
 
 public class Piece: MonoBehaviour
 {
@@ -20,4 +21,49 @@ public class Piece: MonoBehaviour
             this.cells[i] = (Vector3Int)data.cells[i];
         }
     }
+
+    private void Update()
+    {
+        this.board.Clear(this);
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Move(Vector2Int.left);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            Move(Vector2Int.right);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        { 
+            Move(Vector2Int.down);
+        }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            HardDrop();
+        }
+        this.board.Set(this);
+    }
+
+    private void HardDrop()
+    {
+        while (Move(Vector2Int.down))
+        {
+            continue;
+        }
+    }
+
+    private bool Move(Vector2Int translation)
+    {
+        Vector3Int newPosition = this.position;
+        newPosition.x += translation.x; 
+        newPosition.y += translation.y;
+        bool valid = this.board.IsValidPosition(this, newPosition);
+
+        if (valid)
+        {
+            this.position = newPosition;
+        }
+        return valid;
+    }
 }
+

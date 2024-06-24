@@ -78,30 +78,66 @@ public class Piece: MonoBehaviour
 
     private void Rotate(int direction)
     {
+        int oldRotation = this.rotationIndex;
         this.rotationIndex = Wrap(this.rotationIndex + direction, 0, 4);
-        for (int i = 0; i < this.cells.Length; i++) 
+       MatrixRotation(direction);
+
+        if (!TestWallKicks(this.rotationIndex, direction))
+        {
+            this.rotationIndex = oldRotation;
+            MatrixRotation(-direction);
+        }
+    }
+
+    private void MatrixRotation(int direction)
+    {
+        for (int i = 0; i < this.cells.Length; i++)
         {
             Vector3 cell = this.cells[i];
             int x, y;
 
             switch (this.data.tetromino)
             {
-                case Tetromino.I:
-                case Tetromino.O:
-                    cell.x -= 0.5f;
-                    cell.y -= 0.5f;
-                    x = Mathf.CeilToInt((cell.x * Data.RotationMatrix[0] * direction) + (cell.y * Data.RotationMatrix[1] * direction));
-                    y = Mathf.CeilToInt((cell.x * Data.RotationMatrix[2] * direction) + (cell.y * Data.RotationMatrix[3] * direction));
-                    break;
-                default:
-                    x = Mathf.RoundToInt((cell.x * Data.RotationMatrix[0] * direction) + (cell.y * Data.RotationMatrix[1] * direction));
-                    y = Mathf.RoundToInt((cell.x * Data.RotationMatrix[2] * direction) + (cell.y * Data.RotationMatrix[3] * direction));
-                    break;
+            case Tetromino.I:
+            case Tetromino.O:
+                cell.x -= 0.5f;
+                cell.y -= 0.5f;
+                x = Mathf.CeilToInt((cell.x * Data.RotationMatrix[0] * direction) + (cell.y * Data.RotationMatrix[1] * direction));
+                y = Mathf.CeilToInt((cell.x * Data.RotationMatrix[2] * direction) + (cell.y * Data.RotationMatrix[3] * direction));
+                break;
+            default:
+                x = Mathf.RoundToInt((cell.x * Data.RotationMatrix[0] * direction) + (cell.y * Data.RotationMatrix[1] * direction));
+                y = Mathf.RoundToInt((cell.x * Data.RotationMatrix[2] * direction) + (cell.y * Data.RotationMatrix[3] * direction));
+                break;
             }
             this.cells[i] = new Vector3Int(x, y, 0);
         }
     }
+    private bool TestWallKicks(int RotationIndex, int RotationDirection)
+    {
+        int WallKickIndex = GetWallKicks(RotationIndex, RotationDirection); 
+        for(int i = 0; i < this.data.wallkicks.GetLength(1); i++)
+        {
+            Vector2Int traslacion = this.data.wallkicks[WallKickIndex, i];
 
+            if (Move(traslacion))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int GetWallKicks(int RotationIndex, int RotationDirection)
+    {
+        int wallkickIndex = RotationIndex * 2;
+
+        if(RotationDirection < 0)
+        {
+            wallkickIndex --;
+        }
+        return Wrap(wallkickIndex, 0, this.data.wallkicks.GetLength(0));
+    }
     private int Wrap(int input, int min, int max)
     {
         if(input < min)

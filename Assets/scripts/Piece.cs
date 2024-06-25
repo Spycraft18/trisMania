@@ -7,13 +7,22 @@ public class Piece: MonoBehaviour
     public Vector3Int[] cells {  get; private set; } 
     public TetrominoData data { get; private set; } 
     public Vector3Int position { get; private set; }   
-    public int rotationIndex { get; private set; }   
+    public int rotationIndex { get; private set; }
+    public float stepdelay = 1f;
+    public float lockdelay = 0.5f;
+
+    private float steptime;
+    private float locktime;
+
+
     public void Initialize(Board board, Vector3Int position, TetrominoData data)
     {
         this.rotationIndex = 0;
         this.board = board;
         this.position = position;
         this.data = data;
+        this.steptime = Time.time + this.stepdelay;
+        this.locktime = 0f;
         if (this.cells == null)
         {
             this.cells = new Vector3Int[data.cells.Length];
@@ -26,7 +35,9 @@ public class Piece: MonoBehaviour
 
     private void Update()
     {
+
         this.board.Clear(this);
+        this.locktime += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.A))
         {
             Move(Vector2Int.left);
@@ -51,16 +62,39 @@ public class Piece: MonoBehaviour
         {
             HardDrop();
         }
+        if (Time.time >= this.steptime)
+        {
+            Step();
+        }
         this.board.Set(this);
-    }
 
+    }
+    private void Step()
+    {
+        this.steptime = Time.time + this.stepdelay;
+
+        Move(Vector2Int.down);  
+
+        if (this.locktime >= this.lockdelay)
+        {
+            Lock () ;
+
+        }
+    }
     private void HardDrop()
     {
         while (Move(Vector2Int.down))
         {
             continue;
         }
+        Lock ();
     }
+    private void Lock()
+    {
+        this.board.Set(this);
+        this.board.SpawnPiece();
+    }
+
 
     private bool Move(Vector2Int translation)
     {
@@ -72,6 +106,7 @@ public class Piece: MonoBehaviour
         if (valid)
         {
             this.position = newPosition;
+            this.locktime = 0f;
         }
         return valid;
     }

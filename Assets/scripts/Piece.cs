@@ -92,6 +92,7 @@ public class Piece: MonoBehaviour
     private void Lock()
     {
         this.board.Set(this);
+        this.board.DeleteLines();
         this.board.SpawnPiece();
     }
 

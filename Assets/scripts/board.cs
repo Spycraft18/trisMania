@@ -36,7 +36,20 @@ public class Board : MonoBehaviour
         int random = Random.Range(0, this.tetrominoes.Length);
         TetrominoData data = this.tetrominoes[random];
         this.activePiece.Initialize(this, this.spawnPosition, data);
+        if (IsValidPosition(this.activePiece, this.spawnPosition))
+        {
+            Set(this.activePiece);
+        }
+        else
+        {
+            GameOver();
+        }
         Set(this.activePiece);
+    }
+
+    public void GameOver()
+    {
+        this.tilemap.ClearAllTiles();
     }
 
     public void Set(Piece piece)
@@ -73,5 +86,59 @@ public class Board : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public void DeleteLines()
+    {
+        RectInt bounds = this.Bounds;
+        int rows = bounds.yMin;
+        while (rows < bounds.yMax)
+        {
+            if (IsLineFull(rows))
+            {
+                ClearLine(rows);
+            }
+            else
+            {
+                rows++;
+            }
+        }
+    }
+
+    public bool IsLineFull(int row)
+    {
+        RectInt borde = this.Bounds;
+        for (int column = borde.xMin; column < borde.xMax; column++)
+        {
+            Vector3Int posicion = new Vector3Int(column, row, 0);
+            if (!this.tilemap.HasTile(posicion))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void ClearLine(int row)
+    {
+        RectInt borde = this.Bounds;
+
+        for(int col = borde.xMin; col < borde.xMax; col++)
+        {
+            Vector3Int position = new Vector3Int(col, row,0);
+            this.tilemap.SetTile(position,null);
+        }
+
+        while(row < borde.yMax)
+        {
+            for (int col = borde.xMin; col < borde.xMax; col++)
+            {
+                Vector3Int position = new Vector3Int(col, row + 1, 0);
+                TileBase arriba = this.tilemap.GetTile(position);
+                position = new Vector3Int(col, row, 0);
+                this.tilemap.SetTile(position, arriba);
+            }
+            row++;
+        }
     }
 }

@@ -1,71 +1,74 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Gost : MonoBehaviour
+public class Ghost : MonoBehaviour
 {
-    public Tile Tile;
-    public Board Board;
-    public Piece piezadeseguimiento;
+    public Tile tile;
+    public Board mainBoard;
+    public Piece trackingPiece;
 
-    public Tilemap tilemap { get;private set; }
+    public Tilemap tilemap { get; private set; }
     public Vector3Int[] cells { get; private set; }
     public Vector3Int position { get; private set; }
 
-    private void awake()
+    private void Awake()
     {
-        this.tilemap = GetComponent<Tilemap>(); 
-        this.cells = new Vector3Int[4];
-
+        tilemap = GetComponentInChildren<Tilemap>();
+        cells = new Vector3Int[4];
     }
 
-    private void ultimaactualizacion()
+    private void LateUpdate()
     {
-        clear();
-        copy();
-        drop();
-        set();
+        Clear();
+        Copy();
+        Drop();
+        Set();
     }
-    private void clear()
+
+    private void Clear()
     {
-        
-        for (int i = 0; i < this.cells.Length; i++)
+        for (int i = 0; i < cells.Length; i++)
         {
             Vector3Int tilePosition = this.cells[i] + this.position;
             this.tilemap.SetTile(tilePosition, null);
         }
     }
 
-    private void copy()
+    private void Copy()
     {
         for (int i = 0; i < this.cells.Length; i++)
         {
-            this.cells[i] = this.piezadeseguimiento.cells[i];
-
-
+            this.cells[i] = trackingPiece.cells[i];
         }
     }
-    private void drop()
+
+    private void Drop()
     {
-        Vector3Int position= this.piezadeseguimiento.position;
+        Vector3Int position = this.trackingPiece.position;
+
         int current = position.y;
-        int bottom= this.Board.boardSize / 2 -1 ;
-        this.Board.Clear(this.piezadeseguimiento);
-        for (int row = current; row < bottom; row++)
+        int bottom = -this.mainBoard.boardSize.y / 2 - 1;
+
+        this.mainBoard.Clear(trackingPiece);
+
+        for (int row = current; row >= bottom; row--)
         {
             position.y = row;
-            if (this.Board.IsValidPosition(this.piezadeseguimiento, position)){
-                this.position = position;
 
-            } else {
+            if (this.mainBoard.IsValidPosition(this.trackingPiece, position))
+            {
+                this.position = position;
+            }
+            else
+            {
                 break;
             }
         }
-        this.Board.set(this.piezadeseguimiento);
 
+        this.mainBoard.Set(this.trackingPiece);
     }
-    private void set()
+
+    private void Set()
     {
         for (int i = 0; i < this.cells.Length; i++)
         {
@@ -73,4 +76,5 @@ public class Gost : MonoBehaviour
             this.tilemap.SetTile(tilePosition, this.tile);
         }
     }
+
 }

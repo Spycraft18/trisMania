@@ -32,7 +32,7 @@ public class Piece: MonoBehaviour
             this.cells[i] = (Vector3Int)data.cells[i];
         }
     }
-
+     
     private void Update()
     {
 

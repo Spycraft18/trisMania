@@ -12,7 +12,7 @@ public class MenuInicial : MonoBehaviour
     
     public void Guia()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2); 
     }
 
     public void Salir()

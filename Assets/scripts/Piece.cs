@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
 
@@ -10,6 +12,7 @@ public class Piece: MonoBehaviour
     public int rotationIndex { get; private set; }
     public float stepdelay = 1f;
     public float lockdelay = 0.5f;
+    public bool movement = true;
 
     private float steptime;
     private float locktime;
@@ -38,33 +41,49 @@ public class Piece: MonoBehaviour
 
         this.board.Clear(this);
         this.locktime += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Move(Vector2Int.left);
+            if (Time.timeScale == 1)
+            {
+                Time.timeScale = 0;
+                movement = false;
+            }
+            else if (Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+                movement = true;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        if(movement == true)
         {
-            Move(Vector2Int.right);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        { 
-            Move(Vector2Int.down);
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Rotate(-1);
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            Rotate(1);
-        }
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            HardDrop();
-        }
-        if (Time.time >= this.steptime)
-        {
-            Step();
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                Move(Vector2Int.left);
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                Move(Vector2Int.right);
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Move(Vector2Int.down);
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Rotate(-1);
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                Rotate(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                HardDrop();
+            }
+            if (Time.time >= this.steptime)
+            {
+                Step();
+            }
         }
         this.board.Set(this);
 

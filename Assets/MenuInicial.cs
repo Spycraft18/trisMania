@@ -15,6 +15,10 @@ public class MenuInicial : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2); 
     }
 
+    public void ReturnMenu()
+    {
+        SceneManager.LoadScene("Menu Inicial");
+    }
     public void Salir()
     {
         Debug.Log("Salir...");

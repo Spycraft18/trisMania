@@ -7,7 +7,7 @@ public class Board : MonoBehaviour
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10,20);
-
+    public int LinesCleared = 0;
     public RectInt Bounds
     {
         get
@@ -96,6 +96,7 @@ public class Board : MonoBehaviour
         {
             if (IsLineFull(rows))
             {
+                LinesCleared++;
                 ClearLine(rows);
             }
             else

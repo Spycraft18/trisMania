@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour
 {
@@ -11,9 +12,22 @@ public class MusicPlayer : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (instance != this)
         {
             Destroy(gameObject);
+        }
+
+    }
+
+    void Start()
+    {
+        if (instance == this)
+        {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (audioSource != null && !audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
     }
 }

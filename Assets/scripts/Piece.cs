@@ -9,10 +9,12 @@ public class Piece : MonoBehaviour
     public Vector3Int[] cells { get; private set; }
     public TetrominoData data { get; private set; }
     public Vector3Int position { get; private set; }
+
+    public Pause pause;
+
     public int rotationIndex { get; private set; }
     public float stepdelay = 1f;
     public float lockdelay = 0.5f;
-    public bool movement = true;
 
     private float steptime;
     private float locktime;
@@ -35,26 +37,18 @@ public class Piece : MonoBehaviour
             this.cells[i] = (Vector3Int)data.cells[i];
         }
     }
+    private void Start()
+    {
+        // Buscar el objeto Pause en la escena
+        pause = FindObjectOfType<Pause>();
+    }
 
     private void Update()
     {
 
         this.board.Clear(this);
         this.locktime += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (Time.timeScale == 1)
-            {
-                Time.timeScale = 0;
-                movement = false;
-            }
-            else if (Time.timeScale == 0)
-            {
-                Time.timeScale = 1;
-                movement = true;
-            }
-        }
-        if (movement == true)
+        if (pause != null && pause.movement)
         {
             if (Input.GetKeyDown(KeyCode.A))
             {

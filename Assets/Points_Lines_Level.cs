@@ -28,12 +28,13 @@ public class Points_Lines_Level : MonoBehaviour
     void Update()
     {
         int LinesCleared = board.LinesCleared;
+        int LinesToBeCleared = Difficulty;
         ClearedLines.text = LinesCleared.ToString("D4");
-        if (LinesCleared >= Difficulty)
+        if (LinesCleared >= LinesToBeCleared)
         {
-            Difficulty *= 2;
+            LinesToBeCleared += Difficulty;
             Levels++;
-            piece.speed++;
+            piece.speed *= 0.75f;
 
         } 
         if (oldLine != LinesCleared)

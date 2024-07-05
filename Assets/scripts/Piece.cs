@@ -9,12 +9,12 @@ public class Piece : MonoBehaviour
     public Vector3Int[] cells { get; private set; }
     public TetrominoData data { get; private set; }
     public Vector3Int position { get; private set; }
-
+    public Points_Lines_Level Points_Lines_Level;
     public float speed = 1;
     public Pause pause;
 
     public int rotationIndex { get; private set; }
-    public float stepdelay = 1f ;
+    public float stepdelay = 1f;
     public float lockdelay = 0.5f;
 
     private float steptime;
@@ -49,8 +49,6 @@ public class Piece : MonoBehaviour
 
         this.board.Clear(this);
         this.locktime += Time.deltaTime;
-        stepdelay *= speed;
-        lockdelay *= speed;
         if (pause != null && pause.movement)
         {
             if (Input.GetKeyDown(KeyCode.A))

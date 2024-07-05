@@ -10,7 +10,6 @@ public class Piece : MonoBehaviour
     public TetrominoData data { get; private set; }
     public Vector3Int position { get; private set; }
     public Points_Lines_Level Points_Lines_Level;
-    public float speed = 1;
     public Pause pause;
 
     public int rotationIndex { get; private set; }
@@ -42,6 +41,7 @@ public class Piece : MonoBehaviour
     {
         // Buscar el objeto Pause en la escena
         pause = FindObjectOfType<Pause>();
+        Points_Lines_Level = FindObjectOfType<Points_Lines_Level>();
     }
 
     private void Update()

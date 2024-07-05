@@ -899,6 +899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b094d71d2f3d0944a2258b67f8228d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Points_Lines_Level: {fileID: 0}
   pause: {fileID: 0}
   stepdelay: 1
   lockdelay: 0.5
@@ -1201,8 +1202,11 @@ MonoBehaviour:
   Score: {fileID: 472695496}
   Levels: 1
   Difficulty: 2
+  speed: 0.75
+  LinesToBeCleared: 0
   ScoreMultiplier: 100
   Scores: 0
+  oldLine: 0
 --- !u!1 &854207245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,7 +1911,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370306625}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 

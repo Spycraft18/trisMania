@@ -1,5 +1,7 @@
 using UnityEngine ;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 public class Board : MonoBehaviour
 {
     public Tilemap tilemap { get; private set; }
@@ -7,7 +9,8 @@ public class Board : MonoBehaviour
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10,20);
-    public GameOver gameover {  get; private set; }
+    public Points_Lines_Level pointsLinesLevel;
+
     public int LinesCleared = 0;
     public RectInt Bounds
     {
@@ -50,8 +53,13 @@ public class Board : MonoBehaviour
 
     public void GameOver()
     {
+        if (pointsLinesLevel != null)
+        {
+            pointsLinesLevel.SaveScoresBeforeGameOver();
+            Debug.Log("Sigamos");
+        }
         this.tilemap.ClearAllTiles();
-        gameover.GameOverScreen();
+        SceneManager.LoadScene("GameOver");
     }
 
     public void Set(Piece piece)

@@ -29,5 +29,21 @@ public class MusicPlayer : MonoBehaviour
                 audioSource.Play();
             }
         }
+        SceneManager.sceneLoaded += SceneLoaded;
+    }
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= SceneLoaded;
+    }
+    private void SceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "GameOver")
+        {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
     }
 }

@@ -6,18 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    public Points_Lines_Level Points {  get; private set; }
+    public Points_Lines_Level points { get; private set; }
 
     public TMP_InputField inputField;
     public TextMeshProUGUI finalscore;
     // Start is called before the first frame update
-    void Start()
-    {
-        if(inputField != null)
-        {
-            inputField.onValueChanged.AddListener(ValueChanged);
-        }
-    }
 
     void ValueChanged(string text)
     {
@@ -32,6 +25,18 @@ public class GameOver : MonoBehaviour
             inputField.caretBlinkRate = 0.85f;
         }
     }
+    void Start()
+    {
+        if (points != null)
+        {
+            Debug.Log("finalmente");
+            finalscore.text = points.LastScores.ToString("D6");
+        }
+        if (inputField != null)
+        {
+            inputField.onValueChanged.AddListener(ValueChanged);
+        }
+    }
     void OnDestroy()
     {
         if (inputField != null)
@@ -39,15 +44,4 @@ public class GameOver : MonoBehaviour
             inputField.onValueChanged.RemoveListener(ValueChanged);
         }
     }
-    public void GameOverScreen()
-    {
-        SceneManager.LoadScene("GameOver");
-        finalscore.text = Points.Scores.ToString("D6");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+}   

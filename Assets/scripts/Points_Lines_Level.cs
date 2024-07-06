@@ -17,9 +17,9 @@ public class Points_Lines_Level : MonoBehaviour
     public int Difficulty;
     public float speed = 0.75f;
     public int LinesToBeCleared;
-    //private bool LevelIncreased;
     public int ScoreMultiplier = 100;
     public int Scores = 0;
+    public int LastScores { get; private set; }
     public int oldLine;
     // Start is called before the first frame update
     void Start()
@@ -52,5 +52,10 @@ public class Points_Lines_Level : MonoBehaviour
         }
                 Level.text = Levels.ToString("D2");
 
+    }
+    public void SaveScoresBeforeGameOver()
+    {
+        LastScores = Scores;
+        Debug.Log("A ver" + Scores);
     }
 }

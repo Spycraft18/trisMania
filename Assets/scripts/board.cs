@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10,20);
     public Points_Lines_Level pointsLinesLevel;
+    public SaveSystem saveSystem {  get; private set; }
 
     public int LinesCleared = 0;
     public RectInt Bounds
@@ -55,6 +56,7 @@ public class Board : MonoBehaviour
     {
         if (pointsLinesLevel != null)
         {
+            //saveSystem.SaveData();
             pointsLinesLevel.SaveScoresBeforeGameOver();
             Debug.Log("Sigamos" + pointsLinesLevel.LastScores);
         }

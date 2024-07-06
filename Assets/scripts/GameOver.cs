@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     public Points_Lines_Level points { get; private set; }
+    public SaveSystem SaveSystem { get; private set; }
     public int ActiveScene = 0;
     public TMP_InputField inputField;
     public TextMeshProUGUI finalscore;

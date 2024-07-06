@@ -10,6 +10,7 @@ public class Points_Lines_Level : MonoBehaviour
 {
     public Board board;
     public Piece piece {  get; private set; }
+    public SaveSystem saveSystem {  get; private set; }
     public TextMeshProUGUI ClearedLines;
     public TextMeshProUGUI Level;
     public TextMeshProUGUI Score;
@@ -47,6 +48,7 @@ public class Points_Lines_Level : MonoBehaviour
         {
             Scores += Levels * ScoreMultiplier;
             Score.text = Scores.ToString("D6");
+            //saveSystem.SaveData();
             oldLine = LinesCleared;
             //LevelIncreased = false;
         }

@@ -7,6 +7,7 @@ public class Board : MonoBehaviour
     public TetrominoData[] tetrominoes;
     public Vector3Int spawnPosition;
     public Vector2Int boardSize = new Vector2Int(10,20);
+    public GameOver gameover {  get; private set; }
     public int LinesCleared = 0;
     public RectInt Bounds
     {
@@ -50,6 +51,7 @@ public class Board : MonoBehaviour
     public void GameOver()
     {
         this.tilemap.ClearAllTiles();
+        gameover.GameOverScreen();
     }
 
     public void Set(Piece piece)

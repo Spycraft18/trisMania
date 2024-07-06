@@ -56,10 +56,11 @@ public class Board : MonoBehaviour
         if (pointsLinesLevel != null)
         {
             pointsLinesLevel.SaveScoresBeforeGameOver();
-            Debug.Log("Sigamos");
+            Debug.Log("Sigamos" + pointsLinesLevel.LastScores);
         }
         this.tilemap.ClearAllTiles();
         SceneManager.LoadScene("GameOver");
+        Debug.Log("A ver" + pointsLinesLevel.LastScores);
     }
 
     public void Set(Piece piece)

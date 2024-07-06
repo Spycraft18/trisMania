@@ -936,7 +936,6 @@ GameObject:
   - component: {fileID: 851535693}
   - component: {fileID: 851535697}
   - component: {fileID: 851535699}
-  - component: {fileID: 851535698}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1039,22 +1038,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae1122186bb8dd4fa931a48dba27679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActiveScene: 0
   inputField: {fileID: 218200632}
   finalscore: {fileID: 553958777}
---- !u!114 &851535698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 851535692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e80362fc6e401ba448876adace3545da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputField: {fileID: 218200632}
-  TopScore: {fileID: 553958777}
 --- !u!114 &851535699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1483,18 +1469,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 851535698}
-        m_TargetAssemblyTypeName: SaveSystem, Assembly-CSharp
-        m_MethodName: SaveData
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 851535699}
         m_TargetAssemblyTypeName: MenuInicial, Assembly-CSharp
         m_MethodName: ReturnMenu

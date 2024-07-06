@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     public Points_Lines_Level points { get; private set; }
-
+    public int ActiveScene = 0;
     public TMP_InputField inputField;
     public TextMeshProUGUI finalscore;
     // Start is called before the first frame update
@@ -27,14 +27,32 @@ public class GameOver : MonoBehaviour
     }
     void Start()
     {
-        if (points != null)
+        if (SceneManager.GetActiveScene().name == "GameOver")
         {
-            Debug.Log("finalmente");
-            finalscore.text = points.LastScores.ToString("D6");
+            points = FindObjectOfType<Points_Lines_Level>();
+            ActiveScene = 1;
         }
         if (inputField != null)
         {
             inputField.onValueChanged.AddListener(ValueChanged);
+        }
+    }
+
+    private void Update()
+    {
+
+        if (ActiveScene == 1)
+        {
+            ActiveScene = 0; // Resetea la bandera para evitar repetición
+            Debug.Log("finalmente");
+            if (points != null)
+            {
+                finalscore.text = points.LastScores.ToString("D6");
+            }
+            else
+            {
+                Debug.LogError("Points_Lines_Level no encontrado.");
+            }
         }
     }
     void OnDestroy()

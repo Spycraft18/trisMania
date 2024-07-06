@@ -19,7 +19,7 @@ public class Points_Lines_Level : MonoBehaviour
     public int LinesToBeCleared;
     public int ScoreMultiplier = 100;
     public int Scores = 0;
-    public int LastScores { get; private set; }
+    public int LastScores;
     public int oldLine;
     // Start is called before the first frame update
     void Start()

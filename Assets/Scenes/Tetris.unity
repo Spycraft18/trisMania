@@ -858,6 +858,7 @@ MonoBehaviour:
     tile: {fileID: 11400000, guid: 6cc5a418cea16be4ab31056cf7dc2288, type: 2}
   spawnPosition: {x: -1, y: 8, z: 0}
   boardSize: {x: 10, y: 20}
+  pointsLinesLevel: {fileID: 687422112}
   LinesCleared: 0
 --- !u!156049354 &557687564
 Grid:
@@ -1051,6 +1052,7 @@ GameObject:
   - component: {fileID: 687422107}
   - component: {fileID: 687422106}
   - component: {fileID: 687422112}
+  - component: {fileID: 687422113}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1193,7 +1195,22 @@ MonoBehaviour:
   LinesToBeCleared: 0
   ScoreMultiplier: 100
   Scores: 0
+  LastScores: 0
   oldLine: 0
+--- !u!114 &687422113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687422105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80362fc6e401ba448876adace3545da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputField: {fileID: 0}
+  TopScore: {fileID: 0}
 --- !u!1 &854207245
 GameObject:
   m_ObjectHideFlags: 0
